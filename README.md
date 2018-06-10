@@ -1,9 +1,7 @@
-GoodSearcher
+BookSearcher
 ============
 
-A pyLucene-based crawl and search module for searching books from goodreads.com
-
-![Image of GoodSearcher homepage](/homepage.png)
+A Elasticsearch-based crawl and search module for searching books from goodreads.com
 
 
 | Module  | Files | Description|
