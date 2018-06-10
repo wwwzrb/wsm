@@ -1,0 +1,91 @@
+$def with(details)
+
+
+<!doctype HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.2">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>BookSearcher</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  
+</head>
+
+<body>
+
+    <div class="container">
+        <center>
+            <a href="/"><h1>BookSearcher</h1></a>
+        </center>
+    </div>
+
+    $for detail in details
+    <div class="container">
+        <div class="card">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h3><a href="$detail['url']">$detail['title']</a></h3>
+                                    <h6 class="card-subtitle text-muted">by
+                                        $for auth in detail['authors']:
+                                            <a href="$auth[1]">$auth[0]</a>,
+                                    </h6>
+                                </div>
+                                <div class="col-md-4">
+                                    $for type in detail['types']
+                                        <a href="/genre/$type"><span class="badge badge-success">$type</span></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-block">
+                            <p class="card-text">$detail['description']</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                    <center>
+                        <img class="card-img-bottom" src="$detail['cover']" alt="Card image cap" title="">
+                    </center>
+                    </div>
+                </div>
+        </div>
+        <hr>
+    </div>
+
+
+
+    <div class="container">
+        <div class="card-columns">
+            $for review in detail['reviews']:
+                <div class="card">
+                    <div class="card-header">
+                        <a href="$review[1]"><h4 class="card-title">$review[0]</h4></a>
+                        <h6 class="card-subtitle text-muted">$review[3]</h6>
+                    </div>
+                    <div class="card-block">
+                        <p class="card-text">$review[2]</p>
+                    </div>
+                </div>
+                <!--
+                <a href="#" class="list-group-item active">
+                    <h4 class="list-group-item-heading">$review[0]</h4>
+                    <p class="list-group-item-text">$review[1]</p>
+                </a>-->
+        </div>
+        <hr>
+    </div>
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+</body>
+</html>

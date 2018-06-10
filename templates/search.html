@@ -1,0 +1,96 @@
+<!doctype HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>BookSearcher</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <div class="container" style='margin-top: 15%'>
+            <center>
+                <a href="/"><h1>BookSearcher</h1></a>
+            </center>
+        <center>       
+            <div class="input-group">
+                    <div class="input-group-btn">
+                        <button id="filter" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Title
+                        </button>
+                        <div class="dropdown-menu">
+                            <li class="dropdown-item">Title</li>
+                            <li class="dropdown-item">Author</li>
+                            <li class="dropdown-item">Genre</li>
+                            <li class="dropdown-item">Fuzzy</li>
+                        </div>
+                    </div>
+                    <input type="text" id="q" class="form-control" aria-label="Text input with dropdown button">
+            </div>
+            <br>
+            <button onclick="goToNext()" class="btn btn-primary">Search</button>
+        </center>
+    </div>
+
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+    
+    function goToNext()
+    {
+        var filter=document.getElementById("filter").value;
+        console.log(filter);
+        if(filter===""|filter==="Title"){
+            url="/title/" + document.getElementById("q").value;
+        }
+        else if(filter==="Author"){
+            url="/author/" + document.getElementById("q").value;
+        }
+        else if(filter==='Genre')
+        {
+            url="/genre/" + document.getElementById("q").value;
+        }
+        else if(filter==="Fuzzy"){
+            url="/fuzzy/" + document.getElementById("q").value;
+        }
+        else
+        {
+            url="/"
+        }
+        window.location = url;
+    }
+    document.body.onkeydown = function(event){
+        var q=document.getElementById("q").value;
+        var filter=document.getElementById("filter").value;
+        event = event || window.event;
+        var keycode = event.charCode || event.keyCode;
+        if(keycode === 13){
+            if(q === "")
+            {
+                alert("请输入关键字");
+            }
+            else{
+                goToNext();
+            }
+        }
+    }
+    jQuery(function(){
+
+jQuery(".dropdown-menu li").click(function(){
+
+  jQuery(".btn:first-child").text(jQuery(this).text());
+  jQuery(".btn:first-child").val(jQuery(this).text());
+
+});
+
+});
+</script>
+</body>
+</html>

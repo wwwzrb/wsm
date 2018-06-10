@@ -1,0 +1,73 @@
+$def with(anses, query, num_pages)
+
+   
+<!doctype HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.2">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>BookSearcher</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    
+</head>
+
+<body>
+
+    <div class="container">
+        <center>
+            <a href="/"><h1>BookSearcher</h1></a>
+        </center>
+    </div>
+
+    <div class="container">
+        $for a in anses:
+            <div class="card">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h3><a href="$a['url']">$a['title']</a></h3>
+                                    <h6 class="card-subtitle text-muted">by
+                                        $for auth in a['authors']:
+                                            <a href="$auth[1]">$auth[0]</a>,
+                                    </h6>
+                                </div>
+                                <div class="col-md-4">
+                                    $for type in a['types']
+                                        <a href="/genre/$type"><span class="badge badge-success">$type</span></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-block">
+                            <p class="card-text">$a['description']</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <center>
+                            <a href="/detail?title=$a['title']&authors=$a['authors'][0][0]"><img src="$a['cover']" width="150", height="200"/></a>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        <hr>
+    </div>
+    <div class="container">
+        <center>
+            $for i in range(num_pages):
+            <a href="/search/$query?page=$i">$i</a>
+        </center>
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+</body>
+</html>
