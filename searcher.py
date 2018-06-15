@@ -65,8 +65,12 @@ class detail:
         render = web.template.render('templates/')
         details = []
         data_input = web.input()
+        query_author=""
+        query_title=""
+        if "author" in data_input:
+            query_author = data_input["authors"]
         query_title=data_input["title"]
-        query_author=data_input["authors"]
+
 
         if use_elasticsearch:
             # importing libraries for Elasticsearch
@@ -85,11 +89,19 @@ class detail:
                 Q('match', title=query_title) | Q('match', authors_name=query_author))
             ## This damn statement took half an hour from me! Nowhere in the documentation indicated that this statement should be before s.execute()
             response = s.execute()
+            userreviews_userName=["None"]
+            userreviews_userURL=["#"]
+            userreviews_userReview=["None"]
+            userreviews_userReviewDate=["None"]
             # print 'total number of hits: ', response.hits.total
             for res in response:
                 authors = zip(res.authors_name, res.authors_url)
-                reviews = zip(res.userreviews_userName, res.userreviews_userURL,
+                try:
+                    reviews = zip(res.userreviews_userName, res.userreviews_userURL,
                               res.userreviews_userReview, res.userreviews_userReviewDate)
+                except:
+                    reviews=zip(userreviews_userName,userreviews_userURL,userreviews_userReview,userreviews_userReviewDate)
+
                 details.append({'title': res.title, 'description': res.description.encode('utf-8'), 'url': res.url, 'cover':res.cover, 'authors':authors, 'reviews': reviews, 'types': res.type})
                 break
         else:
